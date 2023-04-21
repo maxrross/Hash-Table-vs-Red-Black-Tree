@@ -15,23 +15,24 @@ void HashTable::Insert(std::string fName, std::string lName, std::string address
                        std::string zip, std::string phoneNum) {
     // check loadFactor, insert accordingly
     if (loadFactor < 0.8)
-        hTable[Hash(fName)].emplace_back(fName, lName, address, city, state, zip, phoneNum);
+        hTable[Hash(fName, lName)].emplace_back(fName, lName, address, city, state, zip, phoneNum);
     else {
         ReHash();
-        hTable[Hash(fName)].emplace_back(fName, lName, address, city, state, zip, phoneNum);
+        hTable[Hash(fName, lName)].emplace_back(fName, lName, address, city, state, zip, phoneNum);
     }
 
     numEntries++;
     UpdateLoad();
 }
 
-int HashTable::Hash(std::string fName) {
+int HashTable::Hash(std::string fName, std::string lName) {
     // hash function based on https://cp-algorithms.com/string/string-hashing.html#search-for-duplicate-strings-in-an-array-of-strings
     int p = 29791;
     long long currentHash = 0;
+    std::string toHash = fName + lName;
 
-    for (int i = 0; i < fName.length(); i++) {
-        currentHash += (fName[i] * (int)std::pow(p, i));
+    for (int i = 0; i < toHash.length(); i++) {
+        currentHash += (toHash[i] * (int)std::pow(p, i));
     }
 
     // if hash val overflows simply change to positive
@@ -42,17 +43,18 @@ int HashTable::Hash(std::string fName) {
 }
 
 void HashTable::ReHash() {
-    std::vector<Person>* temp = new std::vector<Person>[numBuckets * 2];
+    int oldBuckets = numBuckets;
+    numBuckets *= 2;
+    std::vector<Person>* temp = new std::vector<Person>[numBuckets];
 
     // copy each Person obj from current hTable to temp
-    for (int i = 0; i < numBuckets; i++) {
+    for (int i = 0; i < oldBuckets; i++) {
         for (int j = 0; j < hTable[i].size(); j++) {
-            temp[Hash(hTable[i][j].fName)].push_back(hTable[i][j]);
+            temp[Hash(hTable[i][j].fName, hTable[i][j].lName)].push_back(hTable[i][j]);
         }
     }
 
-    // increase numBuckets, assign hTable to temp, and clear temp
-    numBuckets *= 2;
+    // assign hTable to temp, and clear temp
     hTable = temp;
     temp->clear();
 
@@ -60,14 +62,19 @@ void HashTable::ReHash() {
 }
 
 void HashTable::Search(std::string first, std::string last) {
-    int index = Hash(first);
+    int index = Hash(first, last);
+    int numMatches = 0;
 
     if (hTable[index].size() > 0) {
         for (int i = 0; i < hTable[index].size(); i++) {
-            if (hTable[index][i].lName == last)
-                // do smth here
-                std::cout << "Found" << std::endl;
+            if (hTable[index][i].fName == first && hTable[index][i].lName == last)
+                numMatches++;
         }
+
+        if (numMatches == 1)
+            std::cout << "Found " << numMatches << " match" << std::endl;
+        else
+            std::cout << "Found " << numMatches << " matches" << std::endl;
     }
     else {
         std::cout << "Not found" << std::endl;

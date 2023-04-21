@@ -12,7 +12,7 @@ public:
     void UpdateLoad();
     void Insert(std::string fName, std::string lName, std::string address, std::string city, std::string state,
                 std::string zip, std::string phoneNum);
-    int Hash(std::string fName);
+    int Hash(std::string fName, std::string lName);
     void ReHash();
     void Search(std::string first, std::string last);
 

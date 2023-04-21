@@ -5,11 +5,13 @@
 #include "HashTable.h"
 
 void ParseFile(std::string fileName, HashTable& table);
-// do smth to read command line instructions
+void HandleInstructions(HashTable& table);
+/// add tree obj to function declaration so we can pass instructions to both
 
 int main() {
     HashTable table;
     ParseFile("data/data.txt", table);
+    HandleInstructions(table);
 
     return 0;
 }
@@ -43,4 +45,29 @@ void ParseFile(std::string fileName, HashTable& table) {
     auto duration = duration_cast<std::chrono::microseconds>(stop - start);
 
     std::cout << "Inserted " << num << " elements in " << duration.count() << " microseconds" << std::endl;
+}
+
+void HandleInstructions(HashTable& table) {
+    std::vector<std::string> instructions;
+    std::string line;
+    std::string word;
+
+    while (std::getline(std::cin, line)) {
+        instructions.clear();
+
+        if (line == "exit")
+            break;
+
+        std::stringstream s(line);
+        while(std::getline(s, word, ' ')) {
+            instructions.push_back(word);
+        }
+
+        if (instructions[0] == "search") {
+            table.Search(instructions[1], instructions[2]);
+        }
+        else {
+            std::cout << "Invalid instruction sequence" << std::endl;
+        }
+    }
 }

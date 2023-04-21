@@ -66,7 +66,7 @@ void HashTable::Search(std::string first, std::string last) {
         for (int i = 0; i < hTable[index].size(); i++) {
             if (hTable[index][i].lName == last)
                 // do smth here
-                std::cout << "Found";
+                std::cout << "Found" << std::endl;
         }
     }
     else {

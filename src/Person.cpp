@@ -9,5 +9,8 @@ Person::Person(std::string fName, std::string lName, std::string address, std::s
     this->state = state;
     this->zip = zip;
     this->phoneNum = phoneNum;
+    
 }
+
+
 

@@ -5,6 +5,7 @@
 #include "Person.cpp"
 #include "HashTable.h"
 #include "HashTable.cpp"
+#include "RedBlack.cpp"
 
 void ParseFile(std::string fileName, HashTable& table);
 void HandleInstructions(HashTable& table);
@@ -15,7 +16,13 @@ int main() {
     ParseFile("data.txt", table);
     HandleInstructions(table);
 
+    RedBlack tree;
+    ParseFile("data.txt", tree);
+    tree.Search("Robert", "Wright");
+
     return 0;
+
+    
 }
 
 void ParseFile(std::string fileName, HashTable& table) {

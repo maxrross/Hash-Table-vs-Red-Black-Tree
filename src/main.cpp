@@ -2,7 +2,9 @@
 #include <sstream>
 #include <chrono>
 #include "Person.h"
+#include "Person.cpp"
 #include "HashTable.h"
+#include "HashTable.cpp"
 
 void ParseFile(std::string fileName, HashTable& table);
 void HandleInstructions(HashTable& table);
@@ -10,7 +12,7 @@ void HandleInstructions(HashTable& table);
 
 int main() {
     HashTable table;
-    ParseFile("data/data.txt", table);
+    ParseFile("data.txt", table);
     HandleInstructions(table);
 
     return 0;

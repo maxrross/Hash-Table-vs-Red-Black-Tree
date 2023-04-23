@@ -140,15 +140,16 @@ void RedBlack::Search(std::string first, std::string last) {
         std::cout << "No Matches Found." << std::endl;
 }
 
-RedBlack::Node* RedBlack::Search(Node* root, std::string first, std::string last) {
-    if (root == nullptr)
+// TODO: fix search so that it proceeds if encountering two nodes that have same fname + lname
+RedBlack::Node* RedBlack::Search(Node* current, std::string first, std::string last) {
+    if (current == nullptr)
         return nullptr;
-    else if ((first + last) < (root->data->fName + root->data->lName))
-        return Search(root->left, first, last);
-    else if ((first + last) > (root->data->fName + root->data->lName))
-        return Search(root->right, first, last);
+    else if ((first + last) < (current->data->fName + current->data->lName))
+        return Search(current->left, first, last);
+    else if ((first + last) > (current->data->fName + current->data->lName))
+        return Search(current->right, first, last);
     else
-        return root;
+        return current;
 }
 
 void RedBlack::TimeTrial(int n) {

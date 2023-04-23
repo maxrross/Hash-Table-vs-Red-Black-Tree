@@ -121,7 +121,7 @@ void RedBlack::RotateRight(RedBlack::Node* toRotate) {
 void RedBlack::Search(std::string first, std::string last) {
     Node* res = Search(root, first, last);
     if (res != nullptr) {
-        std::cout << "Match Found. Displaying." << std::endl;
+        std::cout << "1 Match Found. Displaying." << std::endl;
         res->data->Print();
     }
     else

@@ -71,16 +71,16 @@ void HashTable::Search(std::string first, std::string last) {
                 numMatches++;
         }
 
-        if (numMatches > 1) {
-            std::cout << numMatches << " Matches Found. Displaying all." << std::endl;
+        if (numMatches > 0) {
+            if (numMatches == 1)
+                std::cout << numMatches << " Match Found. Displaying." << std::endl;
+            else
+                std::cout << numMatches << " Matches Found. Displaying all." << std::endl;
 
             for (auto & x : hTable[index]) {
-                x.Print();
+                if (x.fName == first && x.lName == last)
+                    x.Print();
             }
-        }
-        else if (numMatches == 1) {
-            std::cout << numMatches << " Match Found. Displaying." << std::endl;
-            hTable[index][0].Print();
         }
     }
     else {

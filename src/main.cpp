@@ -23,16 +23,14 @@ int main() {
 
 void PrintAscii() {
     // from https://patorjk.com/software/taag/#p=display&f=Doom&t=Ligma%20Productions
-    std::cout << " _     _                        ______              _            _   _                 \n"
+    std::cout << "\n _     _                        ______              _            _   _                 \n"
                  "| |   (_)                       | ___ \\            | |          | | (_)                \n"
                  "| |    _  __ _ _ __ ___   __ _  | |_/ / __ ___   __| |_   _  ___| |_ _  ___  _ __  ___ \n"
                  "| |   | |/ _` | '_ ` _ \\ / _` | |  __/ '__/ _ \\ / _` | | | |/ __| __| |/ _ \\| '_ \\/ __|\n"
                  "| |___| | (_| | | | | | | (_| | | |  | | | (_) | (_| | |_| | (__| |_| | (_) | | | \\__ \\\n"
                  "\\_____/_|\\__, |_| |_| |_|\\__,_| \\_|  |_|  \\___/ \\__,_|\\__,_|\\___|\\__|_|\\___/|_| |_|___/\n"
                  "          __/ |                                                                        \n"
-                 "         |___/   \n\n\n" << std::endl;
-
-    std::cout << "Initializing Data Structures \n" << std::endl;
+                 "         |___/   \n\n" << std::endl;
 }
 
 void InsertTable(std::string fileName, HashTable& table) {
@@ -43,9 +41,7 @@ void InsertTable(std::string fileName, HashTable& table) {
     std::vector<Person> people;
     int num = 0;
 
-    std::cout << std::fixed << std::showpoint;
-    std::cout << std::setprecision(8);
-
+    std::cout << std::left << std::setfill('.') << std::setw(80) << "Inserting Data into Hash Table" << std::endl;
     auto start = std::chrono::high_resolution_clock::now();
 
     if (inFile.is_open()) {
@@ -76,9 +72,7 @@ void InsertTree(std::string fileName, RedBlack& tree) {
     std::vector<Person> people;
     int num = 0;
 
-    std::cout << std::fixed << std::showpoint;
-    std::cout << std::setprecision(8);
-
+    std::cout << std::left << std::setfill('.') << std::setw(80) << "Inserting Data into Red-Black Tree" << std::endl;
     auto start = std::chrono::high_resolution_clock::now();
 
     if (inFile.is_open()) {
@@ -102,6 +96,11 @@ void InsertTree(std::string fileName, RedBlack& tree) {
 }
 
 void HandleInstructions(HashTable& table, RedBlack& tree) {
+    std::cout << "\nOptions:" << std::endl;
+    std::cout << "\t1. Search: search [table/tree] First Last" << std::endl;
+    std::cout << "\t2. Time Trials: time [integer]\n" << std::endl;
+
+
     std::vector<std::string> instructions;
     std::string line;
     std::string word;

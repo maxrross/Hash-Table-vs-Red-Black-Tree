@@ -19,15 +19,27 @@ RedBlack::Node *RedBlack::Insert(RedBlack::Node* root, const Person*& newPerson)
         root->left = Insert(root->left, newPerson);
         root->left->parent = root;
     }
-    else {
+    else if (newPerson > root->data) {
         root->right = Insert(root->right, newPerson);
         root->right->parent = root;
+    }
+    else if (newPerson == root->data) {
+        if (newPerson->phoneNum < root->data->phoneNum) {
+            root->left = Insert(root->left, newPerson);
+            root->left->parent = root;
+        }
+        else {
+            root->right = Insert(root->right, newPerson);
+            root->right->parent = root;
+        }
     }
 
     return root;
 }
 
 void RedBlack::HandleInsertion(RedBlack::Node* newNode) {
+    // https://www.andrew.cmu.edu/user/mm6/95-771/examples/RedBlackTreeProject/dist/javadoc/redblacktreeproject/RedBlackTree.html
+
     if (newNode == root) {
         newNode->color = BLACK;
         return;
@@ -121,7 +133,7 @@ void RedBlack::RotateRight(RedBlack::Node* toRotate) {
 void RedBlack::Search(std::string first, std::string last) {
     Node* res = Search(root, first, last);
     if (res != nullptr) {
-        std::cout << "1 Match Found. Displaying." << std::endl;
+        std::cout << "Match Found. Displaying." << std::endl;
         res->data->Print();
     }
     else
@@ -131,13 +143,38 @@ void RedBlack::Search(std::string first, std::string last) {
 RedBlack::Node* RedBlack::Search(Node* root, std::string first, std::string last) {
     if (root == nullptr)
         return nullptr;
-
     else if ((first + last) < (root->data->fName + root->data->lName))
         return Search(root->left, first, last);
-
     else if ((first + last) > (root->data->fName + root->data->lName))
         return Search(root->right, first, last);
-
     else
         return root;
+}
+
+void RedBlack::TimeTrial(int n) {
+    std::queue<RedBlack::Node*> q;
+    q.push(root);
+    Node* current;
+    int i = 0;
+
+    auto start = std::chrono::high_resolution_clock::now();
+    while (i < n) {
+        current = q.front();
+        if (q.empty())
+            break;
+
+        q.pop();
+
+        if (current->left != nullptr) {
+            q.push(current->left);
+            i++;
+        }
+        if (current->right != nullptr) {
+            q.push(current->right);
+            i++;
+        }
+    }
+    auto stop = std::chrono::high_resolution_clock::now();
+    auto duration = duration_cast<std::chrono::microseconds>(stop - start);
+    std::cout << "Accessed the first " << n << " Red-Black Tree elements sequentially in " << duration.count() << " microseconds" << std::endl;
 }

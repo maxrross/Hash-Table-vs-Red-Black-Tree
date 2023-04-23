@@ -5,6 +5,7 @@
 #include <cmath>
 #include <iostream>
 #include <vector>
+#include <chrono>
 
 class HashTable {
 public:
@@ -15,6 +16,7 @@ public:
     int Hash(std::string fName, std::string lName);
     void ReHash();
     void Search(std::string first, std::string last);
+    void TimeTrial(int n);
 
 private:
     int numEntries;

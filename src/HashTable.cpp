@@ -44,7 +44,7 @@ int HashTable::Hash(std::string fName, std::string lName) {
 
 void HashTable::ReHash() {
     int oldBuckets = numBuckets;
-    numBuckets *= 2;
+    numBuckets *= 1.5;
     std::vector<Person>* temp = new std::vector<Person>[numBuckets];
 
     // copy each Person obj from current hTable to temp
@@ -86,4 +86,25 @@ void HashTable::Search(std::string first, std::string last) {
     else {
         std::cout << "No Matches Found." << std::endl;
     }
+}
+
+void HashTable::TimeTrial(int n) {
+    int i = 0;
+
+    auto start = std::chrono::high_resolution_clock::now();
+    while (i < n) {
+        if (hTable[i].size() == 0) {
+            i++;
+            continue;
+        }
+        else {
+            for (int j = 0; j < hTable[i].size(); j++) {
+                i++;
+            }
+        }
+    }
+    auto stop = std::chrono::high_resolution_clock::now();
+    auto duration = duration_cast<std::chrono::microseconds>(stop - start);
+
+    std::cout << "Accessed the first " << n << " Hash Table elements sequentially in " << duration.count() << " microseconds" << std::endl;
 }

@@ -1,6 +1,5 @@
 #include <fstream>
 #include <sstream>
-#include <chrono>
 #include <iomanip>
 #include "HashTable.h"
 #include "RedBlack.h"
@@ -121,6 +120,10 @@ void HandleInstructions(HashTable& table, RedBlack& tree) {
         }
         else if (instructions[0] == "search" && instructions[1] == "tree") {
             tree.Search(instructions[2], instructions[3]);
+        }
+        else if (instructions[0] == "time") {
+            table.TimeTrial(std::stoi(instructions[1]));
+            tree.TimeTrial(std::stoi(instructions[1]));
         }
         else {
             std::cout << "Invalid instruction sequence" << std::endl;

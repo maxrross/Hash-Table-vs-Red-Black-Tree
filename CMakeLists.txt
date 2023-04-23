@@ -3,4 +3,4 @@ project(COP3530-Project-3)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(COP3530-Project-3 src/main.cpp src/HashTable.cpp src/HashTable.h src/Person.cpp src/Person.h)
+add_executable(COP3530-Project-3 src/main.cpp src/HashTable.cpp src/HashTable.h src/Person.cpp src/Person.h src/RedBlack.cpp src/RedBlack.h)

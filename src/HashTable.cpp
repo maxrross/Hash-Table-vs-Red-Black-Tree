@@ -71,28 +71,19 @@ void HashTable::Search(std::string first, std::string last) {
                 numMatches++;
         }
 
-        if (numMatches == 1){
-            std::cout << "Found " << numMatches << " match" << std::endl;
-            std::cout << "First Name: " << hTable[index][0].fName << std::endl;
-            std::cout << "Last Name: " << hTable[index][0].lName << std::endl;
-            std::cout << "Address: " << hTable[index][0].address << std::endl;
-            std::cout << "City: " << hTable[index][0].city << std::endl;
-            std::cout << "State: " << hTable[index][0].state << std::endl;
-            std::cout << "Zip: " << hTable[index][0].zip << std::endl;
-            std::cout << "Phone Number: " << hTable[index][0].phoneNum << std::endl;
-       } else
-            std::cout << "Found " << numMatches << " matches" << std::endl;
-            for (int i = 0; i < hTable[index].size(); i++) {
-                std::cout << "First Name: " << hTable[index][i].fName << std::endl;
-                std::cout << "Last Name: " << hTable[index][i].lName << std::endl;
-                std::cout << "Address: " << hTable[index][i].address << std::endl;
-                std::cout << "City: " << hTable[index][i].city << std::endl;
-                std::cout << "State: " << hTable[index][i].state << std::endl;
-                std::cout << "Zip: " << hTable[index][i].zip << std::endl;
-                std::cout << "Phone Number: " << hTable[index][i].phoneNum << std::endl;
+        if (numMatches > 1) {
+            std::cout << numMatches << " Matches Found. Displaying all." << std::endl;
+
+            for (auto & x : hTable[index]) {
+                x.Print();
             }
+        }
+        else if (numMatches == 1) {
+            std::cout << numMatches << " Match Found. Displaying." << std::endl;
+            hTable[index][0].Print();
+        }
     }
     else {
-        std::cout << "Not found" << std::endl;
+        std::cout << "No Matches Found." << std::endl;
     }
 }

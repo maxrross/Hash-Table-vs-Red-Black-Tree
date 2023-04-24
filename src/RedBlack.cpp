@@ -93,18 +93,17 @@ void RedBlack::HandleInsertion(RedBlack::Node* newNode) {
 void RedBlack::RotateLeft(RedBlack::Node* toRotate) {
     Node* right = toRotate->right;
     toRotate->right = right->left;
-
-    if (toRotate->right == nullptr)
-        toRotate->right->parent = toRotate;
-
+    right->left->parent = toRotate;
     right->parent = toRotate->parent;
 
     if (toRotate->parent == nullptr)
-        toRotate = right;
-    else if (toRotate == toRotate->parent->left)
-        toRotate->parent->left = right;
-    else
-        toRotate->parent->right = right;
+        root = right;
+    else {
+        if (toRotate == toRotate->parent->left)
+            toRotate->parent->left = right;
+        else
+            toRotate->parent->right = right;
+    }
 
     right->left = toRotate;
     toRotate->parent = right;
@@ -113,18 +112,17 @@ void RedBlack::RotateLeft(RedBlack::Node* toRotate) {
 void RedBlack::RotateRight(RedBlack::Node* toRotate) {
     Node* left = toRotate->left;
     toRotate->left = left->right;
-
-    if (toRotate->left == nullptr)
-        toRotate->left->parent = toRotate;
-
+    left->right->parent = toRotate;
     left->parent = toRotate->parent;
 
     if (toRotate->parent == nullptr)
-        toRotate = left;
-    else if (toRotate == toRotate->parent->left)
-        toRotate->parent->left = left;
-    else
-        toRotate->parent->right = left;
+        root = left;
+    else {
+        if (toRotate == toRotate->parent->left)
+            toRotate->parent->left = left;
+        else
+            toRotate->parent->right = left;
+    }
 
     left->right = toRotate;
     toRotate->parent = left;

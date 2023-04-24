@@ -96,7 +96,7 @@ void InsertTree(std::string fileName, RedBlack& tree) {
 
 void HandleInstructions(HashTable& table, RedBlack& tree) {
     std::cout << "\nOptions:" << std::endl;
-    std::cout << "\t1. Search: search [table/tree] First Last" << std::endl;
+    std::cout << "\t1. Search: search [table/tree] [First] [Last]" << std::endl;
     std::cout << "\t2. Time Trials: time [integer]\n" << std::endl;
 
 

@@ -129,25 +129,37 @@ void RedBlack::RotateRight(RedBlack::Node* toRotate) {
 }
 
 void RedBlack::Search(std::string first, std::string last) {
-    Node* res = Search(root, first, last);
-    if (res != nullptr) {
-        std::cout << "Match Found. Displaying." << std::endl;
-        res->data->Print();
+    Node* current = root;
+    std::queue<RedBlack::Node*> q;
+    q.push(current);
+    std::vector<Node*> results;
+
+    while (!q.empty()) {
+        current = q.front();
+        q.pop();
+
+        if (current->data->fName == first && current->data->lName == last)
+            results.push_back(current);
+
+        if (current->left != nullptr)
+            q.push(current->left);
+
+        if (current->right != nullptr)
+            q.push(current->right);
+    }
+
+    if (results.size() > 0) {
+        if (results.size() == 1)
+            std::cout << "1 match found. Displaying." << std::endl;
+        else
+            std::cout << results.size() << " Matches found. Displaying all." << std::endl;
+
+        for (auto & x : results) {
+            x->data->Print();
+        }
     }
     else
-        std::cout << "No Matches Found." << std::endl;
-}
-
-// TODO: fix search so that it proceeds if encountering two nodes that have same fname + lname
-RedBlack::Node* RedBlack::Search(Node* current, std::string first, std::string last) {
-    if (current == nullptr)
-        return nullptr;
-    else if ((first + last) < (current->data->fName + current->data->lName))
-        return Search(current->left, first, last);
-    else if ((first + last) > (current->data->fName + current->data->lName))
-        return Search(current->right, first, last);
-    else
-        return current;
+        std::cout << "No matches found." << std::endl;
 }
 
 void RedBlack::TimeTrial(int n) {

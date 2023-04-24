@@ -71,11 +71,13 @@ void HashTable::Search(std::string first, std::string last) {
                 numMatches++;
         }
 
-        if (numMatches > 0) {
+        if (numMatches == 0)
+            std::cout << "No matches found." << std::endl;
+        else {
             if (numMatches == 1)
-                std::cout << numMatches << " Match Found. Displaying." << std::endl;
+                std::cout << numMatches << " Match found. Displaying." << std::endl;
             else
-                std::cout << numMatches << " Matches Found. Displaying all." << std::endl;
+                std::cout << numMatches << " Matches found. Displaying all." << std::endl;
 
             for (auto & x : hTable[index]) {
                 if (x.fName == first && x.lName == last)
@@ -84,7 +86,7 @@ void HashTable::Search(std::string first, std::string last) {
         }
     }
     else {
-        std::cout << "No Matches Found." << std::endl;
+        std::cout << "No matches found." << std::endl;
     }
 }
 

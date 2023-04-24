@@ -6,30 +6,31 @@ RedBlack::RedBlack() {
 
 void RedBlack::Insert(std::string fName, std::string lName, std::string address, std::string city, std::string state,
                       std::string zip, std::string phoneNum) {
-    const Person* newPerson =  new Person(fName, lName, address, city, state, zip, phoneNum);
-    root = Insert(root, newPerson);
+    //const Person* newPerson =  new Person(fName, lName, address, city, state, zip, phoneNum);
+    root = Insert(root, fName, lName, address, city, state, zip, phoneNum);
     HandleInsertion(root);
 }
 
-RedBlack::Node *RedBlack::Insert(RedBlack::Node* root, const Person*& newPerson) {
+RedBlack::Node *RedBlack::Insert(RedBlack::Node* root, std::string fName, std::string lName, std::string address, std::string city, std::string state,
+                                 std::string zip, std::string phoneNum) {
     if (root == nullptr)
-        return new Node(newPerson);
+        return new Node(fName, lName, address, city, state, zip, phoneNum);
 
-    if (newPerson < root->data) {
-        root->left = Insert(root->left, newPerson);
+    if ((fName + lName) < (root->data->fName + root->data->lName)) {
+        root->left = Insert(root->left, fName, lName, address, city, state, zip, phoneNum);
         root->left->parent = root;
     }
-    else if (newPerson > root->data) {
-        root->right = Insert(root->right, newPerson);
+    else if ((fName + lName) > (root->data->fName + root->data->lName)) {
+        root->right = Insert(root->right, fName, lName, address, city, state, zip, phoneNum);
         root->right->parent = root;
     }
-    else if (newPerson == root->data) {
-        if (newPerson->phoneNum < root->data->phoneNum) {
-            root->left = Insert(root->left, newPerson);
+    else if ((fName + lName) == (root->data->fName + root->data->lName)) {
+        if (phoneNum < root->data->phoneNum) {
+            root->left = Insert(root->left, fName, lName, address, city, state, zip, phoneNum);
             root->left->parent = root;
         }
         else {
-            root->right = Insert(root->right, newPerson);
+            root->right = Insert(root->right, fName, lName, address, city, state, zip, phoneNum);
             root->right->parent = root;
         }
     }
@@ -39,7 +40,6 @@ RedBlack::Node *RedBlack::Insert(RedBlack::Node* root, const Person*& newPerson)
 
 void RedBlack::HandleInsertion(RedBlack::Node* newNode) {
     // https://www.andrew.cmu.edu/user/mm6/95-771/examples/RedBlackTreeProject/dist/javadoc/redblacktreeproject/RedBlackTree.html
-
     if (newNode == root) {
         newNode->color = BLACK;
         return;
@@ -47,7 +47,6 @@ void RedBlack::HandleInsertion(RedBlack::Node* newNode) {
 
     if (newNode->parent->color == BLACK)
         return;
-
 
     while (newNode->parent->color == RED) {
         if (newNode->parent == newNode->parent->parent->left) {

@@ -92,17 +92,19 @@ void HashTable::Search(std::string first, std::string last) {
 
 void HashTable::TimeTrial(int n) {
     int i = 0;
+    int count = 0;
 
     auto start = std::chrono::high_resolution_clock::now();
-    while (i < n) {
+    while (count < n) {
         if (hTable[i].size() == 0) {
             i++;
             continue;
         }
         else {
             for (int j = 0; j < hTable[i].size(); j++) {
-                i++;
+                count++;
             }
+            i++;
         }
     }
     auto stop = std::chrono::high_resolution_clock::now();

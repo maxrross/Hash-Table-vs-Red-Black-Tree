@@ -10,6 +10,7 @@ public:
            std::string state, std::string zip, std::string phoneNum);
     void Print() const;
 
+    // overload operators for comparing in tree insertion
     bool operator==(const Person& other) const {
         return (fName + lName) == (other.fName + other.lName);
     }

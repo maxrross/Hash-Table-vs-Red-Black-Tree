@@ -6,7 +6,6 @@ RedBlack::RedBlack() {
 
 void RedBlack::Insert(std::string fName, std::string lName, std::string address, std::string city, std::string state,
                       std::string zip, std::string phoneNum) {
-    //const Person* newPerson =  new Person(fName, lName, address, city, state, zip, phoneNum);
     root = Insert(root, fName, lName, address, city, state, zip, phoneNum);
     HandleInsertion(root);
 }
@@ -39,6 +38,8 @@ RedBlack::Node *RedBlack::Insert(RedBlack::Node* root, std::string fName, std::s
 }
 
 void RedBlack::HandleInsertion(RedBlack::Node* newNode) {
+    // this will rotate nodes as needed, progressing up the tree
+    // based on the following resource and slides from class
     // https://www.andrew.cmu.edu/user/mm6/95-771/examples/RedBlackTreeProject/dist/javadoc/redblacktreeproject/RedBlackTree.html
     if (newNode == root) {
         newNode->color = BLACK;
@@ -128,6 +129,7 @@ void RedBlack::RotateRight(RedBlack::Node* toRotate) {
 }
 
 void RedBlack::Search(std::string first, std::string last) {
+    // use bfs here since we do not take in phone number as a search parameter
     Node* current = root;
     std::queue<RedBlack::Node*> q;
     q.push(current);
@@ -162,6 +164,7 @@ void RedBlack::Search(std::string first, std::string last) {
 }
 
 void RedBlack::TimeTrial(int n) {
+    // use bfs
     std::queue<RedBlack::Node*> q;
     q.push(root);
     Node* current;

@@ -1,1 +1,2 @@
-# COP3530-Project-3
+# Hash-Table-vs-Red-Black-Tree
+Implemented a comprehensive performance comparison between a Red-Black Tree and a Hash Table in C++. The project loads data from a .txt file into both data structures and measures the time taken to insert elements. It also offers an interactive command-line interface for executing search operations, providing a hands-on comparison of the efficiency of these two data structures in a real-world scenario.
